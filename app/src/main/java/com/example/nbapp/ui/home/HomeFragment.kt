@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         val client = OkHttpClient()
 
         val request: Request = Request.Builder()
-            .url(serverLocation.plus("games?start_date=2020-09-06&end_date=2020-09-07"))
+            .url(serverLocation.plus("games?start_date=2020-09-02&end_date=2020-09-07"))
             .build()
 
         client.newCall(request).enqueue(object: Callback {
