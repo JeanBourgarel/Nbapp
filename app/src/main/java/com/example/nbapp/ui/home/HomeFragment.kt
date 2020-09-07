@@ -14,6 +14,7 @@ import com.example.nbapp.Player
 import com.example.nbapp.R
 import com.example.nbapp.Resp
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.fragment_home.*
 import okhttp3.*
 import java.io.IOException
 
@@ -28,9 +29,8 @@ class HomeFragment : Fragment() {
         getPlayerInfo()
         getLastGames(1)
 
-/*        val recyclerviewGames : RecyclerView = root.findViewById(R.id.recyclerView_games)
+        val recyclerviewGames : RecyclerView = root.findViewById(R.id.recyclerView_games)
         recyclerviewGames.layoutManager = LinearLayoutManager(activity)
-        recyclerviewGames.adapter = GamesAdapter()*/
 
         return root
     }
@@ -55,7 +55,9 @@ class HomeFragment : Fragment() {
                         code >= 200 -> {
                             val resp = GsonBuilder().create().fromJson(body, GamesData::class.java)
                             val games: Array<Game> = resp.data
-
+                            activity?.runOnUiThread {
+                                recyclerView_games.adapter = GamesAdapter(games, context!!)
+                            }
                             println(games[0].home_team.full_name)
                             println(games[0].visitor_team.full_name)
                         }
@@ -115,5 +117,5 @@ class HomeFragment : Fragment() {
 }
 
 class Team(val id: Int, val full_name: String, val name: String, val city: String)
-class Game(val home_team: Team, val visitor_team: Team, home_team_score: Int, visitor_team_score: Int, status: String)
+class Game(val date: String, val home_team: Team, val visitor_team: Team, val home_team_score: Int, val visitor_team_score: Int, val status: String)
 class GamesData(val data: Array<Game>)
