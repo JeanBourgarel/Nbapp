@@ -26,16 +26,52 @@ class HomeFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         getPlayerInfo()
+        getLastGames(1)
 
-        val recyclerviewGames : RecyclerView = root.findViewById(R.id.recyclerView_games)
+/*        val recyclerviewGames : RecyclerView = root.findViewById(R.id.recyclerView_games)
         recyclerviewGames.layoutManager = LinearLayoutManager(activity)
-        recyclerviewGames.adapter
+        recyclerviewGames.adapter = GamesAdapter()*/
 
         return root
     }
 
     fun getLastGames(nbGames: Int) {
+        val serverLocation = MainActivity.apiUrl;
+        val client = OkHttpClient()
 
+        val request: Request = Request.Builder()
+            .url(serverLocation.plus("games?start_date=2020-09-06&end_date=2020-09-07"))
+            .build()
+
+        client.newCall(request).enqueue(object: Callback {
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body?.string()
+                val code = response.code
+                activity?.runOnUiThread {
+                    when {
+                        code >= 400 -> {
+                            Toast.makeText(getContext(), "error 400", Toast.LENGTH_SHORT).show()
+                        }
+                        code >= 200 -> {
+                            val resp = GsonBuilder().create().fromJson(body, GamesData::class.java)
+                            val games: Array<Game> = resp.data
+
+                            println(games[0].home_team.full_name)
+                            println(games[0].visitor_team.full_name)
+                        }
+                    }
+                }
+            }
+            override fun onFailure(call: Call, e: IOException) {
+                println("Failed to execute request")
+                println(e)
+                if (e.toString() == "java.net.SocketTimeoutException: timeout" || e.toString() == "java.net.SocketTimeoutException: SSL handshake timed out") {
+                    activity?.runOnUiThread {
+                        Toast.makeText(getContext(), "Timeout, server didn't respond", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
     }
 
     fun getPlayerInfo() {
@@ -77,3 +113,7 @@ class HomeFragment : Fragment() {
         })
     }
 }
+
+class Team(val id: Int, val full_name: String, val name: String, val city: String)
+class Game(val home_team: Team, val visitor_team: Team, home_team_score: Int, visitor_team_score: Int, status: String)
+class GamesData(val data: Array<Game>)
