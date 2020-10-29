@@ -1,21 +1,20 @@
-package com.example.nbapp.ui.gallery
+package com.example.nbapp.ui.players
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.nbapp.R
 
-class GalleryFragment : Fragment() {
+class PlayersFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
+        val root = inflater.inflate(R.layout.fragment_players, container, false)
         return root
     }
 }

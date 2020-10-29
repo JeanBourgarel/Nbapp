@@ -14,16 +14,16 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.nbapp.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_players"
+        android:name="com.example.nbapp.ui.players.PlayersFragment"
+        android:label="@string/menu_players"
+        tools:layout="@layout/fragment_players" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.nbapp.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_articles"
+        android:name="com.example.nbapp.ui.articles.ArticlesFragment"
+        android:label="@string/menu_articles"
+        tools:layout="@layout/fragment_articles" />
 
     <fragment
         android:id="@+id/nav_test"
