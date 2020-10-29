@@ -1,7 +1,7 @@
 # Nbapp
-A Kotlin app that shows data about NBA recent games.
+### A Kotlin app that shows data about NBA recent games.
 
-Each fragment of the navigation view will be used to show different things.
+#### Each fragment of the navigation view will be used to show different things.
 
 The home fragment is used to show game results about NBA recent games.  
 The players fragment will be used to display different informations about a player (pts, rebounds, assists, blocks, steals...)  
