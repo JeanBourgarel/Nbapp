@@ -28,15 +28,15 @@ class GamesAdapter(val games: Array<Game>, val context: Context) : RecyclerView.
         val game = games.get(position)
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm")
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
         val output: String = formatter.format(parser.parse(game.date))
         holder.view.textView_date.text = output
         holder.view.textView_homeTeamScore.text = game.home_team_score.toString()
         holder.view.textView_visitorTeamScore.text = game.visitor_team_score.toString()
         //println(game.home_team.full_name)
-/*        var bite = game.home_team.full_name
-        bite = bite.replace(" ", "_").toLowerCase()
-        println(bite)*/
+/*        var test = game.home_team.full_name
+        test = test.replace(" ", "_").toLowerCase()
+        println(test)*/
         var imgName = game.home_team.full_name.replace(" ", "_").toLowerCase()
         var img = context.resources.getIdentifier(imgName, "drawable", context.packageName)
         holder.view.imageView_homeTeamLogo.setImageResource(img)
